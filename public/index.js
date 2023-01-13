@@ -24,7 +24,7 @@ submitButton.addEventListener('click', async () => {
         ageNumber,
         readyBool
     }
-    console.log(fruit);
+    console.log(JSON.stringify(fruit));
 
     fetch('http://localhost:5000/create_fruit', {
         method: "POST",

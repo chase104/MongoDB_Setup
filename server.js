@@ -24,16 +24,23 @@ mongoose.connection.once('open', ()=> {
 
 // before I can ask and send data into the collection, I need to create a model
 
-app.post('/create_fruit', (req, res) =>{
-    console.log(req.body)
-    console.log("running create route");
-    // MyFruit.create({
-    //     name: "apple",
-    //     color: "red",
-    //     age: 14,
-    //     readyToEat: true
-    // })
-    res.send("good request")
+app.post('/create_fruit', async (req, res) =>{
+    
+    const {nameString: name, colorString: color, ageNumber: age, readyBool: readyToEat} = req.body;
+
+
+    // console.log("uploading to database...");
+    let returnedValue = await MyFruit.create({
+        name,
+        color,
+        age,
+        readyToEat
+    })
+    console.log(returnedValue);
+    if (returnedValue) {
+        console.log("upload complete");
+    }
+    res.send(returnedValue);
 })
 
 app.get('/get_data', (req, res) => {
