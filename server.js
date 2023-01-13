@@ -3,13 +3,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config()
 const MyFruit = require('./models/fruit')
-
 const app = express();
 
 
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
 app.use(express.static('public'));
-
 
 let connectionString = `mongodb+srv://${process.env.MONGOUSERNAME}:${process.env.MONGOPASSWORD}@mongosetupcluster.6pmvhu8.mongodb.net/FruitDatabase?retryWrites=true&w=majority`;
 mongoose.set('strictQuery', false);
@@ -25,13 +25,14 @@ mongoose.connection.once('open', ()=> {
 // before I can ask and send data into the collection, I need to create a model
 
 app.post('/create_fruit', (req, res) =>{
+    console.log(req.body)
     console.log("running create route");
-    MyFruit.create({
-        name: "apple",
-        color: "red",
-        age: 14,
-        readyToEat: true
-    })
+    // MyFruit.create({
+    //     name: "apple",
+    //     color: "red",
+    //     age: 14,
+    //     readyToEat: true
+    // })
     res.send("good request")
 })
 
