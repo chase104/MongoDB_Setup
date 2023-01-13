@@ -21,9 +21,19 @@ mongoose.connection.once('open', ()=> {
     console.log('connected to mongo');
 });
 
+
 // before I can ask and send data into the collection, I need to create a model
 
-
+app.post('/create_fruit', (req, res) =>{
+    console.log("running create route");
+    MyFruit.create({
+        name: "apple",
+        color: "red",
+        age: 14,
+        readyToEat: true
+    })
+    res.send("good request")
+})
 
 app.get('/get_data', (req, res) => {
     // Get data from MonogoDB,
