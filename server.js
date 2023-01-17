@@ -1,35 +1,52 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
+
+// allows us to use information from .env in this file
 require('dotenv').config()
+
+// import MyFruit object from fruit.js
 const MyFruit = require('./models/fruit')
+
+// create app by calling express function
 const app = express();
 
 
+// parses (makes readable) string JSON back into actual objects found in req.body
 app.use(express.json());
+
+// allow use of queries in URL (?limit=2&color=green) 
+// extended allows nested objects in URL
 app.use(express.urlencoded({extended:true}));
 
+// tells express to serve our public folder by default when someone makes a request to this port
 app.use(express.static('public'));
 
-let connectionString = `mongodb+srv://${process.env.MONGOUSERNAME}:${process.env.MONGOPASSWORD}@mongosetupcluster.6pmvhu8.mongodb.net/FruitDatabase?retryWrites=true&w=majority`;
+// string we get from MongoDB - we hide our username and password in our .env file
+let connectionString = `mongodb+srv://${process.env.MONGOUSERNAME}:${process.env.MONGOPASSWORD}@mongosetupcluster.6pmvhu8.mongodb.net/FoodDatabase?retryWrites=true&w=majority`;
+
+// by default mongoose 'strictQuery' is true (strict) meaning we cant ask for information not in our schema
+// see more here: https://mongoosejs.com/docs/migrating_to_6.html#strictquery-is-removed-and-replaced-by-strict
 mongoose.set('strictQuery', false);
+// connect to our MongoDB database (our Models specify which collections)
 mongoose.connect(connectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
+// function will activate once to let us know we are connected
 mongoose.connection.once('open', ()=> {
     console.log('connected to mongo');
 });
 
 
-// before I can ask and send data into the collection, I need to create a model
+
 
 app.post('/create_fruit', async (req, res) =>{
-    
+    // destructuring - see more here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+    // renaming variable while destrucutring: https://wesbos.com/destructuring-renaming
     const {nameString: name, colorString: color, ageNumber: age, readyBool: readyToEat} = req.body;
 
-
-    // console.log("uploading to database...");
+    // Model methods usually give us a promise, so we can wait for the response
     let returnedValue = await MyFruit.create({
         name,
         color,
