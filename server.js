@@ -39,8 +39,6 @@ mongoose.connection.once('open', ()=> {
 });
 
 
-
-
 app.post('/create_fruit', async (req, res) =>{
     // destructuring - see more here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
     // renaming variable while destrucutring: https://wesbos.com/destructuring-renaming
@@ -52,23 +50,27 @@ app.post('/create_fruit', async (req, res) =>{
         color,
         age,
         readyToEat
-    })
+    });
+
+
     console.log(returnedValue);
     if (returnedValue) {
         console.log("upload complete");
     }
+    res.status(400);
     res.send(returnedValue);
+
 })
 
-app.get('/get_data', (req, res) => {
-    // Get data from MonogoDB,
-    // res.json(data)
-    res.setHeader('Content-Type', 'application/json');
+// app.get('/get_data', (req, res) => {
+//     // Get data from MonogoDB,
+//     // res.json(data)
+//     // res.setHeader('Content-Type', 'application/json');
 
-    console.log("request received at /get_data");
-    console.log(process.env.MONGOPASSWORD);
-    res.json({data: "Response from server"})
-})
+//     console.log("request received at /get_data");
+//     console.log(process.env.MONGOPASSWORD);
+//     res.json({data: "Response from server"})
+// })
 
 
 app.listen(5000, () => {
