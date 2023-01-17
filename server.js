@@ -57,7 +57,6 @@ app.post('/create_fruit', async (req, res) =>{
     if (returnedValue) {
         console.log("upload complete");
     }
-    res.status(400);
     res.send(returnedValue);
 
 })
@@ -71,7 +70,22 @@ app.post('/create_fruit', async (req, res) =>{
 //     console.log(process.env.MONGOPASSWORD);
 //     res.json({data: "Response from server"})
 // })
+app.delete("/delete_nameless_data", async (req, res) => {
+   let response = await MyFruit.deleteMany({name: ""});
 
+   console.log(response);
+
+   res.send({data: `deleted ${response.deletedCount} items.`})
+})
+
+app.get('/get_food_data', async (req, res) => {
+    // get data from database
+    let response = await MyFruit.find({});
+    console.log(response);
+    // send it back to front end
+    res.json(response)
+
+})
 
 app.listen(5000, () => {
     console.log(`Server is Listening on 5000`)

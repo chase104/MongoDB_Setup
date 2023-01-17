@@ -61,3 +61,23 @@ submitButton.addEventListener('click', async () => {
 
 })
 
+let deleteButton = document.getElementById('delete');
+
+deleteButton.addEventListener('click', async () => {
+   let response = await fetch('http://localhost:5000/delete_nameless_data', {
+        method: "delete",
+    });
+    // console.log(response);
+
+    let parsedData = await response.json()
+    console.log(parsedData);
+});
+
+
+
+let displayPageButton = document.getElementById('display-page-button');
+
+displayPageButton.addEventListener('click', () => {
+    // change HTML files (from index to display_food.html)
+    window.location.href = "./display_food"
+})
