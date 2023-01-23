@@ -78,6 +78,18 @@ app.post('/update_fruit', async (req, res) => {
 //     console.log(process.env.MONGOPASSWORD);
 //     res.json({data: "Response from server"})
 // })
+// frontend: fetch('http://localhost:5000/create_fruit/${id}')
+// params
+app.post('/create_fruit/:fruitId', (req, res) => {
+    let id = req.params.fruitId
+})
+
+// queries
+// frontend: fetch(`http://localhost:5000/create_fruit/?idOfFruit=${id}`)
+app.post('/create_fruit', (req, res) => {
+    let id = req.query.idOfFruit
+})
+
 app.delete("/delete_nameless_data", async (req, res) => {
    let response = await MyFruit.deleteMany({name: ""});
 
