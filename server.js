@@ -2,14 +2,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-
 // allows us to use information from .env in this file
 require('dotenv').config()
 
 // import MyFruit object from fruit.js
 const MyFruit = require('./models/fruit')
 
-let fruits = ['apple', 'kiwi']
 // create app by calling express function
 const app = express();
 
@@ -53,6 +51,8 @@ app.post('/create_fruit', async (req, res) =>{
         age,
         readyToEat
     });
+
+
     console.log(returnedValue);
     if (returnedValue) {
         console.log("upload complete");
@@ -61,14 +61,6 @@ app.post('/create_fruit', async (req, res) =>{
 
 })
 
-
-app.post('/update_fruit', async (req, res) => {
-    console.log(req.body);
-   let response = await MyFruit.findByIdAndUpdate(req.body.id, {name: req.body.newName}, {new: true})
-   console.log("response from collection", response);
-    res.json(response)
-
-})
 // app.get('/get_data', (req, res) => {
 //     // Get data from MonogoDB,
 //     // res.json(data)
@@ -99,11 +91,3 @@ app.listen(5000, () => {
     console.log(`Server is Listening on 5000`)
 });
 
-
-let myObj = {
-    price: 2.00,
-    inventory: 700,
-    nextDelivery: new Date(),
-    deliveryAmt: 200,
-    name: "Toy Car"
-}
