@@ -77,7 +77,10 @@ deleteButton.addEventListener('click', async () => {
 
 let displayPageButton = document.getElementById('display-page-button');
 
-displayPageButton.addEventListener('click', () => {
+displayPageButton.addEventListener('click', (event) => {
+    let id = event.target.databaseId
     // change HTML files (from index to display_food.html)
     window.location.href = "./display_food"
+    // window.location.href = "./display_food?idOfClickedItem=63cd54377099d7e530cbb428"
+    // example of dynamic: `./display_food?idOfClickedItem=${id}`
 })

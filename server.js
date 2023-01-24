@@ -40,7 +40,6 @@ mongoose.connection.once('open', ()=> {
     console.log('connected to mongo');
 });
 
-
 app.post('/create_fruit', async (req, res) =>{
     // destructuring - see more here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
     // renaming variable while destrucutring: https://wesbos.com/destructuring-renaming
@@ -106,6 +105,48 @@ app.get('/get_food_data', async (req, res) => {
     res.json(response)
 
 })
+
+app.get('/get_single_fruit_using_id/:idOfFruit', async (req, res) => {
+    // usually from the front end (req.body.theId) // req.body.params.id // req.query.fruitId
+    let id = req.params.idOfFruit;
+
+    let response = await MyFruit.findById(id);
+    console.log(response);
+    res.send(response);
+})
+
+// this route is to set readyToEat to true
+app.put('/update_one', async (req, res) => {
+    let id = '63cd54377099d7e530cbb428';
+    // usually from the front end (req.body.theId) // req.body.params.id // req.query.fruitId
+    let filter = {name: "apple"};
+    let myData = {readyToEat: true, };
+
+    let response = await MyFruit.updateOne(filter, myData, {new:true});
+    console.log(response);
+    res.send(response);
+})
+app.put('/update_many', async (req, res) => {
+    let id = '63cd54377099d7e530cbb428';
+    // usually from the front end (req.body.theId) // req.body.params.id // req.query.fruitId
+    let filter = {color: undefined};
+    let myData = {readyToEat: false, color: "orange"};
+
+    let response = await MyFruit.updateMany(filter, myData);
+    console.log(response);
+    res.send(response);
+})
+// change what the frontend tells us
+app.put('/update_by_id', async (req, res) => {
+    let id = '63cd54377099d7e530cbb428';
+    // usually from the front end (req.body.theId) // req.body.params.id // req.query.fruitId
+    // update data comes from req.body {name: "banana", readyToEat: false, color: green}
+    let myData = {name: "banana"}
+    let response = await MyFruit.findByIdAndUpdate(id, myData, {new:true});
+    console.log(response);
+    res.send(response);
+})
+
 
 app.listen(5000, () => {
     console.log(`Server is Listening on 5000`)
