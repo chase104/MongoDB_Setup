@@ -21,5 +21,29 @@ const getSingleFruit = async () => {
 getSingleFruit()
  
 
+const updateFruit = async () => {
+    let response = await fetch(`http://localhost:5000/update_product`,
+    // example of code to update fruit
+    {
+        method: 'PUT',
+        headers: {
+            contentType: "application/json"
+        },
+        body: {
+            id: id,
+            dataToUpdate: {
+                color: "the color the user put in the HTML",
+                readyToEat: "from HTML true/false"
+            }
+        }
+    }
+    );
+
+    let finalData = await response.json();
+
+    console.log(finalData);
+    // use this finalData to m
+}
+
 
 // display that data in HTML

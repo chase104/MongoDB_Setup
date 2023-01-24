@@ -119,10 +119,10 @@ app.get('/get_single_fruit_using_id/:idOfFruit', async (req, res) => {
 app.put('/update_one', async (req, res) => {
     let id = '63cd54377099d7e530cbb428';
     // usually from the front end (req.body.theId) // req.body.params.id // req.query.fruitId
-    let filter = {name: "apple"};
-    let myData = {readyToEat: true, };
+    // let filter = {_id: id};
+    let myData = {readyToEat: true, color: "purple"};
 
-    let response = await MyFruit.updateOne(filter, myData, {new:true});
+    let response = await MyFruit.findByIdAndUpdate(id, myData, {new:true});
     console.log(response);
     res.send(response);
 })
