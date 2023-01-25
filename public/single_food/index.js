@@ -22,20 +22,15 @@ getSingleFruit()
  
 
 const updateFruit = async () => {
-    let response = await fetch(`http://localhost:5000/update_product`,
+    let response = await fetch(`http://localhost:5000/update_one`,
     // example of code to update fruit
     {
         method: 'PUT',
         headers: {
-            contentType: "application/json"
+            'Content-Type': "application/json"
         },
-        body: {
-            id: id,
-            dataToUpdate: {
-                color: "the color the user put in the HTML",
-                readyToEat: "from HTML true/false"
-            }
-        }
+        // get id and other data from your front end usind document.getElementById for example
+        // body: JSON.stringify(dataObject)
     }
     );
 
