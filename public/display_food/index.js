@@ -8,11 +8,11 @@ let newNameInput = document.getElementById('new-name');
 
 const getData = async () => {
 
-    const params = new Proxy(new URLSearchParams(window.location.search), {
-        get: (searchParams, prop) => searchParams.get(prop),
-      });
-      // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
-      let value = params.idOfClickedItem; // 
+    // const params = new Proxy(new URLSearchParams(window.location.search), {
+    //     get: (searchParams, prop) => searchParams.get(prop),
+    //   });
+    //   // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+    //   let value = params.idOfClickedItem; // 
 
     
     let data = await fetch("/get_food_data");
@@ -27,7 +27,7 @@ const getData = async () => {
         parsedData.forEach((object) => {
             let pTag = document.createElement("p"); // <p></p>
             pTag.textContent = object.name; // <p>apple</p>
-            pTag.id=object._id
+            // pTag.id=object._id
             if (object.readyToEat !== true) {
                 pTag.style.color = "red"
             } else {
@@ -37,7 +37,7 @@ const getData = async () => {
             pTag.addEventListener('click', (event) => {
                 console.log(event.target);
                 console.log(event.target.id);
-                window.location.href=`../single_food?idInQuery=${event.target.id}`
+                window.location.href=`../single_food?id=${object._id}&name=${object.name}&readyToEat=${object.readyToEat}&color=${object.color}&age=${object.age}`
             })
 
 

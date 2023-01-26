@@ -5,7 +5,8 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
   });
   // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
-  let id = params.idInQuery; 
+  console.log(params);
+  let id = params.id; 
 console.log(id);
 
 // use that ID to get info from collection
