@@ -24,3 +24,6 @@ module.exports = MyFruit;
 
 
 
+setTimeout(() => {
+    keepLooping = false;
+}, 3000)
