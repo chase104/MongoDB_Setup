@@ -16,6 +16,17 @@ const getSingleFruit = async () => {
     let finalData = await response.json();
 
     console.log(finalData);
+
+
+    
+    let container = document.querySelector('container')
+    container.innerHTML = `
+    <div class="single-product">
+        <h1>${finalData.name}</h1>
+        <img class="product-img" src="" alt="">
+        <div>description</div>
+    </div>
+    `
     // use this finalData to make some tags, etc.
 }
 

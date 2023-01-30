@@ -68,6 +68,23 @@ app.post('/update_fruit', async (req, res) => {
     res.json(response)
 
 })
+
+
+
+
+app.get("/getspecificproduct/:product_id", async (req, res) => {
+    console.log("get specific product route");
+    // let id = req.params.product_id;
+    // let response = await Product.findById(id);
+    // console.log(response);
+    // console.log(id);
+    // // send to front end
+    res.json(response);
+  })
+
+
+
+
 // app.get('/get_data', (req, res) => {
 //     // Get data from MonogoDB,
 //     // res.json(data)
